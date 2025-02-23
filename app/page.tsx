@@ -1,7 +1,7 @@
-// app/page.tsx
-'use client';
+"use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 const heroVariants = {
@@ -31,7 +31,6 @@ const cardVariants = {
   }),
 };
 
-// Hard-coded three random products (picked from the products page)
 const featuredProducts = [
   {
     id: 3,
@@ -61,14 +60,15 @@ export default function HomePage() {
     <main className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="relative">
-        <motion.img
-          src="/hero.jpg" // Replace with your hero image path
-          alt="Fashionable clothing"
-          className="w-full h-[600px] object-cover"
-          initial="hidden"
-          animate="visible"
-          variants={heroVariants}
-        />
+        <motion.div initial="hidden" animate="visible" variants={heroVariants}>
+          <Image
+            src="/hero.jpg"
+            alt="Fashionable clothing"
+            width={1920}
+            height={600}
+            className="w-full h-[600px] object-cover"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center">
           <motion.h2
             className="text-4xl md:text-6xl font-extrabold text-white text-center"
@@ -120,9 +120,11 @@ export default function HomePage() {
                 custom={i}
                 variants={cardVariants}
               >
-                <img
+                <Image
                   src={product.image}
                   alt={product.name}
+                  width={400}
+                  height={400}
                   className="w-full h-64 object-cover rounded-md"
                 />
                 <h4 className="mt-4 text-2xl font-semibold text-gray-800">

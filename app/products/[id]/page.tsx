@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "../../context/CartContext";
 import { motion } from "framer-motion";
 
@@ -112,14 +113,15 @@ const itemVariants = {
 
 export default function ProductDetailPage({ params }: PageProps) {
   const productId = parseInt(params.id, 10);
-  const product = products.find((p) => p.id === productId);
 
+  // Call hooks unconditionally at the top
+  const [selectedSize, setSelectedSize] = useState("M");
+  const { addToCart, isInCart } = useCart();
+
+  const product = products.find((p) => p.id === productId);
   if (!product) {
     return notFound();
   }
-
-  const [selectedSize, setSelectedSize] = useState("M");
-  const { addToCart, isInCart } = useCart();
 
   const handleAddToCart = () => {
     if (!isInCart(product.id)) {
@@ -149,13 +151,12 @@ export default function ProductDetailPage({ params }: PageProps) {
           <div className="md:flex">
             {/* Left Side: Product Image */}
             <motion.div className="md:w-1/2" variants={itemVariants}>
-              <motion.img
+              <Image
                 src={product.image}
                 alt={product.name}
-                className="w-full h-full object-cover"
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.5 }}
+                width={600}
+                height={600}
+                className="object-cover"
               />
             </motion.div>
             {/* Right Side: Product Details */}

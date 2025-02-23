@@ -1,8 +1,8 @@
-// app/products/page.tsx
 "use client";
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 type Product = {
@@ -125,9 +125,11 @@ export default function ProductsPage() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <img
+        <Image
           src="/store-banner.jpg"
           alt="Store Banner"
+          width={1920}
+          height={384}
           className="w-full h-96 object-cover"
         />
         <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -209,14 +211,13 @@ export default function ProductsPage() {
                 variants={itemVariants}
               >
                 <div className="relative">
-                  <motion.img
+                    <motion.img
                     src={product.image}
                     alt={product.name}
                     className="w-full h-72 object-cover rounded-t-lg"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   />
-                  
                 </div>
                 <div className="p-4">
                   <h2 className="text-xl font-semibold text-gray-800">
